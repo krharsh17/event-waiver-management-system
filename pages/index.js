@@ -36,6 +36,29 @@ export default function Home() {
             method: "POST",
             body: JSON.stringify({templateId: selectedTemplate, data: formData})
         })
+            .then(r => r.json())
+            .then(r => {
+                if (r.success) {
+                    toast({
+                        title: 'Bulk signature request sent',
+                        status: 'success',
+                        duration: 5000,
+                        isClosable: true,
+                    })
+                    setFormData([{
+                        attendeeName: "",
+                        attendeeEmail: "",
+                        attendeeAddress: "",
+                    }])
+                } else {
+                    toast({
+                        title: 'An error occurred',
+                        status: 'error',
+                        duration: 5000,
+                        isClosable: true,
+                    })
+                }
+            })
     }
 
     useEffect(() => {
